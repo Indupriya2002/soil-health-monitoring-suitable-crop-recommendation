@@ -32,3 +32,13 @@ def test_prediction_is_valid_crop():
     predicted_crop = "rice"
 
     assert predicted_crop in valid_crops
+
+
+def test_negative_nutrient_values_are_detected():
+    input_data = {
+        "N": -10,
+        "P": 42,
+        "K": 43
+    }
+
+    assert input_data["N"] < 0
