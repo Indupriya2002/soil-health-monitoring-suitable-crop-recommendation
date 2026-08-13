@@ -42,3 +42,18 @@ def test_negative_nutrient_values_are_detected():
     }
 
     assert input_data["N"] < 0
+
+def test_dataset_has_required_columns():
+    df = pd.read_csv("crop_dataset.csv")
+
+    required_columns = [
+        "N",
+        "P",
+        "K",
+        "temperature",
+        "humidity",
+        "rainfall",
+        "label"
+    ]
+
+    assert all(column in df.columns for column in required_columns)
