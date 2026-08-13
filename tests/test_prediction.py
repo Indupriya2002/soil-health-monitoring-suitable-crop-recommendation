@@ -1,4 +1,5 @@
 import pandas as pd
+import pytest
 
 from src.crop_prediction import predict_crop
 
@@ -76,3 +77,17 @@ def test_prediction_returns_crop():
 
     assert isinstance(predicted_crop, str)
     assert predicted_crop != ""
+
+
+def test_missing_required_column_raises_error():
+    input_data = pd.DataFrame([{
+        "N": 90,
+        "P": 42,
+        "K": 43,
+        "temperature": 25.5,
+        "humidity": 70,
+        "rainfall": 120
+    }])
+
+    with pytest.raises(ValueError, match="missing required columns"):
+        predict_crop(input_data)
