@@ -5,3 +5,4 @@ gtts
 deep-translator
 joblib
 pyserial
+pytest
