@@ -23,3 +23,12 @@ def test_prediction_input_has_required_columns():
     ]
 
     assert list(input_data.columns) == required_columns
+
+
+
+def test_prediction_is_valid_crop():
+    valid_crops = pd.read_csv("crop_dataset.csv")["label"].unique()
+
+    predicted_crop = "rice"
+
+    assert predicted_crop in valid_crops
