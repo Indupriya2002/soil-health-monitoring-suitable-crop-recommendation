@@ -1,21 +1,41 @@
 import joblib
 import pandas as pd
 
-# Load trained model
-model = joblib.load("crop_model.pkl")
 
-# Sample input
-input_data = pd.DataFrame([{
-    "N": 90,
-    "P": 42,
-    "K": 43,
-    "temperature": 25.5,
-    "humidity": 70,
-    "ph": 6.5,
-    "rainfall": 120
-}])
+def predict_crop(input_data, model_path="crop_model.pkl"):
+    """Predict a suitable crop from soil and environmental data."""
 
-# Predict crop
-prediction = model.predict(input_data)
+    model = joblib.load(model_path)
 
-print("Predicted Crop:", prediction[0])
+    required_columns = [
+        "N",
+        "P",
+        "K",
+        "temperature",
+        "humidity",
+        "ph",
+        "rainfall"
+    ]
+
+    if not all(column in input_data.columns for column in required_columns):
+        raise ValueError("Input data is missing required columns")
+
+    prediction = model.predict(input_data)
+
+    return prediction[0]
+
+
+if __name__ == "__main__":
+    input_data = pd.DataFrame([{
+        "N": 90,
+        "P": 42,
+        "K": 43,
+        "temperature": 25.5,
+        "humidity": 70,
+        "ph": 6.5,
+        "rainfall": 120
+    }])
+
+    crop = predict_crop(input_data)
+
+    print("Predicted Crop:", crop)
