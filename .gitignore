@@ -29,3 +29,7 @@ config_local.py
 # Model/data files - we'll decide separately
 *.pkl
 *.joblib
+
+.pytest_cache/
+.coverage
+htmlcov/
