@@ -1,9 +1,14 @@
+import os
+
 import joblib
 import pandas as pd
 
 
-def predict_crop(input_data, model_path="crop_model.pkl"):
+def predict_crop(input_data, model_path=None):
     """Predict a suitable crop from soil and environmental data."""
+
+    if model_path is None:
+        model_path = os.getenv("CROP_MODEL_PATH", "crop_model.pkl")
 
     model = joblib.load(model_path)
 
